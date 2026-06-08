@@ -338,6 +338,10 @@ def pronosticos():
     usuario = usuario_actual()
     if not usuario:
         return redirect("/")
+    
+    if not usuario.pagado:
+        flash("Tu participación aún no está autorizada. Contacta al administrador.")
+        return redirect("/dashboard")
 
     etapa = request.args.get("etapa", "Jornada 1")
 
