@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiniela Mundial GT 2026</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="container">
+<div class="card">
+<h1>🏆 Quiniela Mundial GT 2026</h1>
+
+<h2>Ranking</h2>
+
+<div class="nav">
+    <a href="/dashboard">Mi perfil</a>
+    <a href="/pronosticos">Mis pronósticos</a>
+    <a href="/ranking">Ranking</a>
+    <a href="/premios">Premios</a>
+    <a href="/reglamento">Reglamento</a>
+    <a href="/logout">Salir</a>
+</div>
+
+<div class="nav">
+<a class="{% if not etapa %}gold{% endif %}" href="/ranking">General</a>
+{% for e in etapas %}
+    <a class="{% if e == etapa %}gold{% endif %}" href="/ranking?etapa={{ e }}">{{ e }}</a>
+{% endfor %}
+</div>
+<table>
+<tr><th>Posición</th><th>Participante</th><th>Puntos</th><th>Exactos</th><th>Pronósticos</th></tr>
+{% for r in ranking %}
+<tr>
+<td>{% if loop.index == 1 %}🥇{% elif loop.index == 2 %}🥈{% elif loop.index == 3 %}🥉{% else %}{{ loop.index }}{% endif %}</td>
+<td>{{ r.participante.nombre }}</td>
+<td><strong>{{ r.puntos }}</strong></td>
+<td>{{ r.exactos }}</td>
+<td>{{ r.pronosticos }}</td>
+</tr>
+{% endfor %}
+</table>
+
+</div>
+</div>
+</body>
+</html>

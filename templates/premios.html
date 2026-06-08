@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiniela Mundial GT 2026</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="container">
+<div class="card">
+<h1>🏆 Quiniela Mundial GT 2026</h1>
+
+<h2>Premios</h2>
+
+<div class="nav">
+    <a href="/dashboard">Mi perfil</a>
+    <a href="/pronosticos">Mis pronósticos</a>
+    <a href="/ranking">Ranking</a>
+    <a href="/premios">Premios</a>
+    <a href="/reglamento">Reglamento</a>
+    <a href="/logout">Salir</a>
+</div>
+
+<div class="stats">
+<div class="stat-box"><span>Participantes pagados</span><strong>{{ total_pagados }}</strong></div>
+<div class="stat-box gold"><span>Bolsa acumulada</span><strong>Q{{ bolsa }}</strong></div>
+</div>
+<table>
+<tr><th>Premio</th><th>Porcentaje sugerido</th><th>Monto estimado</th></tr>
+<tr><td>🥇 Campeón General</td><td>60%</td><td>Q{{ (bolsa * 0.60)|int }}</td></tr>
+<tr><td>🥈 Segundo Lugar</td><td>25%</td><td>Q{{ (bolsa * 0.25)|int }}</td></tr>
+<tr><td>🥉 Tercer Lugar</td><td>15%</td><td>Q{{ (bolsa * 0.15)|int }}</td></tr>
+</table>
+<p>Los premios se calculan sobre participantes marcados como pagados.</p>
+
+</div>
+</div>
+</body>
+</html>

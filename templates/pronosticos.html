@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiniela Mundial GT 2026</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="container">
+<div class="card">
+<h1>🏆 Quiniela Mundial GT 2026</h1>
+
+<h2>Mis Pronósticos - {{ etapa }}</h2>
+
+<div class="nav">
+    <a href="/dashboard">Mi perfil</a>
+    <a href="/pronosticos">Mis pronósticos</a>
+    <a href="/ranking">Ranking</a>
+    <a href="/premios">Premios</a>
+    <a href="/reglamento">Reglamento</a>
+    <a href="/logout">Salir</a>
+</div>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}<div class="alert">{{ msg }}</div>{% endfor %}
+    {% endif %}
+{% endwith %}
+<div class="nav">
+{% for e in etapas %}
+    <a class="{% if e == etapa %}gold{% endif %}" href="/pronosticos?etapa={{ e }}">{{ e }}</a>
+{% endfor %}
+</div>
+<form method="POST">
+<table>
+<tr><th>No.</th><th>Grupo/Ronda</th><th>Partido</th><th>Fecha</th><th>Tu marcador</th><th>Resultado</th><th>Estado</th></tr>
+{% for p in partidos %}
+{% set pron = pron_map.get(p.id) %}
+<tr>
+<td>{{ p.numero }}</td>
+<td>{{ p.grupo }}</td>
+<td class="match-name">{{ p.equipo_local }} vs {{ p.equipo_visitante }}</td>
+<td>{{ p.fecha_texto or '-' }}</td>
+<td>
+{% if p.cerrado %}
+    {{ pron.pron_local if pron else '-' }} - {{ pron.pron_visitante if pron else '-' }}
+{% else %}
+    <input class="score-input" type="number" min="0" name="local_{{ p.id }}" value="{{ pron.pron_local if pron else 0 }}"> -
+    <input class="score-input" type="number" min="0" name="visita_{{ p.id }}" value="{{ pron.pron_visitante if pron else 0 }}">
+{% endif %}
+</td>
+<td>{% if p.goles_local is not none %}{{ p.goles_local }} - {{ p.goles_visitante }}{% else %}Pendiente{% endif %}</td>
+<td>{% if p.cerrado %}<span class="locked">Cerrado</span>{% else %}<span class="open">Abierto</span>{% endif %}</td>
+</tr>
+{% endfor %}
+</table>
+<br>
+<button>Guardar pronósticos</button>
+</form>
+
+</div>
+</div>
+</body>
+</html>

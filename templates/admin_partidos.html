@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiniela Mundial GT 2026</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="container">
+<div class="card">
+<h1>🏆 Quiniela Mundial GT 2026</h1>
+
+<h2>Administrar Partidos</h2>
+
+<div class="nav">
+    <a href="/admin">Participantes</a>
+    <a href="/admin/partidos">Partidos</a>
+    <a href="/ranking">Ranking</a>
+    <a href="/premios">Premios</a>
+    <a href="/reglamento">Reglamento</a>
+    <a href="/logout">Salir</a>
+</div>
+
+<div class="nav">
+{% for e in etapas %}
+    <a class="{% if e == etapa %}gold{% endif %}" href="/admin/partidos?etapa={{ e }}">{{ e }}</a>
+{% endfor %}
+</div>
+<table>
+<tr><th>No.</th><th>Grupo</th><th>Local</th><th>Visitante</th><th>Fecha</th><th>Resultado</th><th>Cerrado</th><th>Guardar</th></tr>
+{% for p in partidos %}
+<tr>
+<form method="POST" action="/admin/partido/{{ p.id }}">
+<td>{{ p.numero }}</td>
+<td>{{ p.grupo }}</td>
+<td><input name="equipo_local" value="{{ p.equipo_local }}"></td>
+<td><input name="equipo_visitante" value="{{ p.equipo_visitante }}"></td>
+<td><input name="fecha_texto" value="{{ p.fecha_texto or '' }}"></td>
+<td><input class="score-input" name="goles_local" value="{{ '' if p.goles_local is none else p.goles_local }}"> - <input class="score-input" name="goles_visitante" value="{{ '' if p.goles_visitante is none else p.goles_visitante }}"></td>
+<td><input type="checkbox" name="cerrado" {% if p.cerrado %}checked{% endif %}> bloquear</td>
+<td><button>Guardar</button></td>
+</form>
+</tr>
+{% endfor %}
+</table>
+
+</div>
+</div>
+</body>
+</html>
