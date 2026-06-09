@@ -350,7 +350,15 @@ def pronosticos():
 
         for partido in partidos:
             if partido.cerrado:
-                continue
+             continue
+
+            if partido.fecha_hora and datetime.now() >= partido.fecha_hora:
+             partido.cerrado = True
+             db.session.commit()
+             continue
+                
+            
+
 
             local = request.form.get(f"local_{partido.id}", "").strip()
             visita = request.form.get(f"visita_{partido.id}", "").strip()
