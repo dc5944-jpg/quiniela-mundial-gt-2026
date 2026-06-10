@@ -44,8 +44,8 @@
 {% if p.cerrado %}
     {{ pron.pron_local if pron else '-' }} - {{ pron.pron_visitante if pron else '-' }}
 {% else %}
-    <input class="score-input" type="number" min="0" name="local_{{ p.id }}" value="{{ pron.pron_local if pron else 0 }}"> -
-    <input class="score-input" type="number" min="0" name="visita_{{ p.id }}" value="{{ pron.pron_visitante if pron else 0 }}">
+    <input class="score-input" type="number" min="0" name="local_{{ p.id }}" value="{{ pron.pron_local if pron else  }}"> -
+    <input class="score-input" type="number" min="0" name="visita_{{ p.id }}" value="{{ pron.pron_visitante if pron else  }}">
 {% endif %}
 </td>
 <td>{% if p.goles_local is not none %}{{ p.goles_local }} - {{ p.goles_visitante }}{% else %}Pendiente{% endif %}</td>
