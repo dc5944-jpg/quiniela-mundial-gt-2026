@@ -411,3 +411,140 @@ hr{ margin:25px 0; }
         font-size:15px;
     }
 }
+
+@media(max-width:700px){
+
+    .login-container{
+        align-items:center;
+        padding:12px;
+    }
+
+    .login-card{
+        width:88%;
+        max-width:360px;
+        padding:24px 18px;
+    }
+
+    .container{
+        width:100%;
+        padding:10px;
+    }
+
+    .card{
+        padding:16px;
+        border-radius:16px;
+    }
+
+    h1{
+        font-size:24px;
+        text-align:center;
+    }
+
+    h2{
+        font-size:18px;
+        text-align:center;
+    }
+
+    .nav{
+        justify-content:center;
+    }
+
+    .nav a{
+        font-size:12px;
+        padding:9px 10px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    table{
+        min-width:0;
+        width:100%;
+        border-collapse:separate;
+        border-spacing:0 14px;
+    }
+
+    table thead{
+        display:none;
+    }
+
+    table tr{
+        display:block;
+        background:#f4f6f8;
+        border-radius:16px;
+        padding:12px;
+        box-shadow:0 3px 10px rgba(0,0,0,.12);
+    }
+
+    table td{
+        display:block;
+        width:100%;
+        border:none;
+        padding:6px 4px;
+        text-align:center;
+        font-size:13px;
+        background:transparent;
+    }
+
+    table td:nth-child(1){
+        font-size:12px;
+        color:#666;
+    }
+
+    table td:nth-child(2){
+        font-size:13px;
+        color:#666;
+    }
+
+    table td:nth-child(3){
+        font-size:17px;
+        font-weight:bold;
+        color:#061626;
+        padding:10px 4px;
+    }
+
+    table td:nth-child(4){
+        font-size:13px;
+        color:#555;
+    }
+
+    table td:nth-child(5){
+        padding:12px 4px;
+    }
+
+    table td:nth-child(5)::before{
+        content:"Tu marcador";
+        display:block;
+        font-size:12px;
+        color:#666;
+        margin-bottom:6px;
+    }
+
+    .score-input{
+        width:62px;
+        height:46px;
+        font-size:20px;
+        font-weight:bold;
+        text-align:center;
+        margin:3px;
+    }
+
+    table td:nth-child(6)::before{
+        content:"Resultado: ";
+        font-weight:bold;
+        color:#061626;
+    }
+
+    table td:nth-child(7)::before{
+        content:"Estado: ";
+        font-weight:bold;
+        color:#061626;
+    }
+
+    button{
+        width:100%;
+        padding:15px;
+        font-size:16px;
+    }
+}
