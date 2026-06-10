@@ -76,10 +76,22 @@ def calcular_ranking(etapa=None):
 
         puntos = 0
         exactos = 0
+        pronosticos_validos = 0
 
         for pron in pronosticos:
+            if pron.pron_local is None or pron.pron_visitante is None:
+                continue
+
+            # No contar 0-0 automático como pronóstico válido si el partido aún no tiene resultado
+            if pron.pron_local == 0 and pron.pron_visitante == 0:
+                if pron.partido.goles_local is None and pron.partido.goles_visitante is None:
+                    continue
+
+            pronosticos_validos += 1
+
             pts, ex = puntos_pronostico(pron, pron.partido)
             puntos += pts
+
             if ex:
                 exactos += 1
 
@@ -87,7 +99,7 @@ def calcular_ranking(etapa=None):
             "participante": participante,
             "puntos": puntos,
             "exactos": exactos,
-            "pronosticos": len(pronosticos)
+            "pronosticos": pronosticos_validos
         })
 
     ranking.sort(
