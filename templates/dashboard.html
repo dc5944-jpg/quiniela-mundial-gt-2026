@@ -27,7 +27,7 @@
     <div class="stat-box gold"><span>📋 Pronósticos</span><strong>{{ total_pronosticos }}</strong></div>
 </div>
 <p>Estado de pago: {% if usuario.pagado %}<span class="pagado">Pagado</span>{% else %}<span class="pendiente">Pendiente</span>{% endif %}</p>
-<p>Usuario: <strong>{{ usuario.telefono }}</strong> · PIN: <strong>{{ usuario.pin }}</strong></p>
+<p>Usuario: {{ usuario.telefono }}</p>
 
 </div>
 </div>
