@@ -21,16 +21,83 @@
 </div>
 
 <div class="stats">
-<div class="stat-box"><span>Participantes pagados</span><strong>{{ total_pagados }}</strong></div>
-<div class="stat-box gold"><span>Bolsa acumulada</span><strong>Q{{ bolsa }}</strong></div>
+    <div class="stat-box">
+        <span>Participantes pagados</span>
+        <strong>{{ total_pagados }}</strong>
+    </div>
+
+    <div class="stat-box gold">
+        <span>Bolsa acumulada</span>
+        <strong>Q{{ bolsa }}</strong>
+    </div>
+
+    <div class="stat-box">
+        <span>Premio por jornada</span>
+        <strong>Q100</strong>
+    </div>
+
+    <div class="stat-box">
+        <span>Jornadas premiadas</span>
+        <strong>3</strong>
+    </div>
 </div>
+
+<h3>🏅 Premios por Jornada</h3>
+
 <table>
-<tr><th>Premio</th><th>Porcentaje sugerido</th><th>Monto estimado</th></tr>
-<tr><td>🥇 Campeón General</td><td>60%</td><td>Q{{ (bolsa * 0.60)|int }}</td></tr>
-<tr><td>🥈 Segundo Lugar</td><td>25%</td><td>Q{{ (bolsa * 0.25)|int }}</td></tr>
-<tr><td>🥉 Tercer Lugar</td><td>15%</td><td>Q{{ (bolsa * 0.15)|int }}</td></tr>
+<tr>
+    <th>Jornada</th>
+    <th>Premio</th>
+    <th>Forma de ganar</th>
+</tr>
+<tr>
+    <td>Jornada 1</td>
+    <td>Q100</td>
+    <td>Mayor puntaje de la Jornada 1</td>
+</tr>
+<tr>
+    <td>Jornada 2</td>
+    <td>Q100</td>
+    <td>Mayor puntaje de la Jornada 2</td>
+</tr>
+<tr>
+    <td>Jornada 3</td>
+    <td>Q100</td>
+    <td>Mayor puntaje de la Jornada 3</td>
+</tr>
 </table>
-<p>Los premios se calculan sobre participantes marcados como pagados.</p>
+
+<br>
+
+<h3>🏆 Premios Generales</h3>
+
+<table>
+<tr>
+    <th>Premio</th>
+    <th>Porcentaje</th>
+    <th>Monto estimado</th>
+</tr>
+<tr>
+    <td>🥇 Campeón General</td>
+    <td>60%</td>
+    <td>Q{{ (bolsa * 0.60)|int }}</td>
+</tr>
+<tr>
+    <td>🥈 Segundo Lugar</td>
+    <td>25%</td>
+    <td>Q{{ (bolsa * 0.25)|int }}</td>
+</tr>
+<tr>
+    <td>🥉 Tercer Lugar</td>
+    <td>15%</td>
+    <td>Q{{ (bolsa * 0.15)|int }}</td>
+</tr>
+</table>
+
+<p>
+Los premios por jornada se entregan al participante con más puntos en cada jornada.
+Los premios generales se calculan sobre la bolsa acumulada de participantes pagados.
+</p>
 
 </div>
 </div>
