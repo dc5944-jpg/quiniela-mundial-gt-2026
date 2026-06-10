@@ -332,13 +332,51 @@ def editar_partido(id):
 
     return redirect(f"/admin/partidos?etapa={partido.etapa}")
 
+def partido_cerrado_automaticamente(partido):
+    if partido.cerrado:
+        return True
+
+    if not partido.fecha_texto:
+        return False
+
+    meses = {
+        "Ene": "Jan", "Feb": "Feb", "Mar": "Mar", "Abr": "Apr",
+        "May": "May", "Jun": "Jun", "Jul": "Jul", "Ago": "Aug",
+        "Sep": "Sep", "Oct": "Oct", "Nov": "Nov", "Dic": "Dec"
+    }
+
+    try:
+        partes = partido.fecha_texto.split()
+
+        # Ejemplo: Jue 11 Jun 2026
+        dia = partes[1]
+        mes = meses.get(partes[2], partes[2])
+        anio = partes[3]
+
+        # Si tiene hora: Jue 11 Jun 2026 18:00
+        hora = partes[4] if len(partes) >= 5 else "00:00"
+
+        fecha_str = f"{dia} {mes} {anio} {hora}"
+        fecha_partido = datetime.strptime(fecha_str, "%d %b %Y %H:%M")
+
+        if datetime.now() >= fecha_partido:
+            partido.cerrado = True
+            db.session.commit()
+            return True
+
+    except:
+        return False
+
+    return False
+
 
 @app.route("/pronosticos", methods=["GET", "POST"])
 def pronosticos():
     usuario = usuario_actual()
+
     if not usuario:
         return redirect("/")
-    
+
     if not usuario.pagado:
         flash("Tu participación aún no está autorizada. Contacta al administrador.")
         return redirect("/dashboard")
@@ -349,16 +387,8 @@ def pronosticos():
         partidos = Partido.query.filter_by(etapa=etapa).order_by(Partido.numero).all()
 
         for partido in partidos:
-            if partido.cerrado:
-             continue
-
-            if partido.fecha_hora and datetime.now() >= partido.fecha_hora:
-             partido.cerrado = True
-             db.session.commit()
-             continue
-                
-            
-
+            if partido_cerrado_automaticamente(partido):
+                continue
 
             local = request.form.get(f"local_{partido.id}", "").strip()
             visita = request.form.get(f"visita_{partido.id}", "").strip()
@@ -386,7 +416,12 @@ def pronosticos():
         return redirect(f"/pronosticos?etapa={etapa}")
 
     partidos = Partido.query.filter_by(etapa=etapa).order_by(Partido.numero).all()
+
+    for partido in partidos:
+        partido_cerrado_automaticamente(partido)
+
     etapas = [x[0] for x in db.session.query(Partido.etapa).distinct().all()]
+
     pronosticos_usuario = Pronostico.query.filter_by(usuario_id=usuario.id).all()
     pron_map = {p.partido_id: p for p in pronosticos_usuario}
 
