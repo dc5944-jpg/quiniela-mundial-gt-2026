@@ -235,9 +235,179 @@ hr{ margin:25px 0; }
     margin-bottom:14px;
 }
 
+/* ===================== */
+/* MEJORAS PARA CELULAR */
+/* ===================== */
+
 @media(max-width:900px){
-    .stats{ grid-template-columns: 1fr 1fr; }
-    .form-row{ grid-template-columns: 1fr; }
-    h1{ font-size:28px; }
-    table{ font-size:12px; }
+    .container{
+        width:100%;
+        padding:14px;
+        box-sizing:border-box;
+    }
+
+    .card{
+        padding:18px;
+        border-radius:16px;
+        overflow-x:auto;
+    }
+
+    h1{
+        font-size:26px;
+        line-height:1.2;
+    }
+
+    h2{
+        font-size:20px;
+        margin-bottom:16px;
+    }
+
+    .nav{
+        gap:7px;
+        margin-bottom:14px;
+    }
+
+    .nav a{
+        padding:9px 10px;
+        font-size:12px;
+        border-radius:8px;
+    }
+
+    .stats{
+        grid-template-columns: 1fr 1fr;
+        gap:10px;
+    }
+
+    .stat-box{
+        padding:13px 8px;
+        border-radius:12px;
+    }
+
+    .stat-box span{
+        font-size:12px;
+    }
+
+    .stat-box strong{
+        font-size:24px;
+    }
+
+    .form-row{
+        grid-template-columns: 1fr;
+        gap:10px;
+    }
+
+    input{
+        font-size:16px;
+        padding:13px;
+    }
+
+    button{
+        width:100%;
+        font-size:16px;
+        padding:14px;
+    }
+
+    table{
+        min-width:720px;
+        font-size:12px;
+    }
+
+    th{
+        padding:9px 6px;
+        font-size:12px;
+    }
+
+    td{
+        padding:8px 5px;
+        font-size:12px;
+    }
+
+    .score-input{
+        width:48px;
+        height:38px;
+        font-size:16px;
+        padding:6px;
+    }
+
+    .match-name{
+        font-size:12px;
+    }
+
+    .btn-small{
+        padding:8px 9px;
+        font-size:12px;
+    }
+
+    .login-container{
+        min-height:100vh;
+        align-items:center;
+        padding:18px;
+    }
+
+    .login-card{
+        max-width:none;
+        width:92%;
+        padding:24px 18px;
+        border-radius:20px;
+    }
+
+    .login-card h1{
+        font-size:24px;
+    }
+
+    .login-card input{
+        height:46px;
+        font-size:16px;
+    }
+
+    .login-card button{
+        height:48px;
+        font-size:16px;
+    }
+}
+
+@media(max-width:480px){
+    .container{
+        padding:10px;
+    }
+
+    .card{
+        padding:14px;
+        border-radius:14px;
+    }
+
+    h1{
+        font-size:23px;
+    }
+
+    h2{
+        font-size:18px;
+    }
+
+    .nav a{
+        font-size:11px;
+        padding:8px 9px;
+    }
+
+    .stats{
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .stat-box strong{
+        font-size:22px;
+    }
+
+    table{
+        min-width:680px;
+    }
+
+    th, td{
+        font-size:11px;
+    }
+
+    .score-input{
+        width:44px;
+        height:36px;
+        font-size:15px;
+    }
 }
