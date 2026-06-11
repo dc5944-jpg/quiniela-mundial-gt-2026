@@ -366,7 +366,7 @@ def partido_cerrado_automaticamente(partido):
         anio = partes[3]
 
         # Si tiene hora: Jue 11 Jun 2026 18:00
-        hora = partes[4] if len(partes) >= 5 else "00:00"
+        hora = partes[4] if len(partes) >= 5 else "23:59"
 
         fecha_str = f"{dia} {mes} {anio} {hora}"
         fecha_partido = datetime.strptime(fecha_str, "%d %b %Y %H:%M")
