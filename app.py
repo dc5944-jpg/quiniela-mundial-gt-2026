@@ -473,6 +473,39 @@ def premios():
 def reglamento():
     return render_template("reglamento.html")
 
+@app.route("/admin/ver-pronosticos")
+def admin_ver_pronosticos():
+    if not es_admin():
+        return redirect("/")
+
+    etapa = request.args.get("etapa", "Jornada 1")
+
+    partidos = Partido.query.filter_by(
+        etapa=etapa
+    ).order_by(Partido.numero).all()
+
+    etapas = [x[0] for x in db.session.query(Partido.etapa).distinct().all()]
+
+    participantes = Usuario.query.filter_by(
+        es_admin=False
+    ).order_by(Usuario.nombre).all()
+
+    pronosticos = Pronostico.query.all()
+
+    pron_map = {}
+
+    for p in pronosticos:
+        pron_map[(p.usuario_id, p.partido_id)] = p
+
+    return render_template(
+        "admin_ver_pronosticos.html",
+        etapa=etapa,
+        etapas=etapas,
+        partidos=partidos,
+        participantes=participantes,
+        pron_map=pron_map
+    )
+
 
 if __name__ == "__main__":
     app.run(debug=True)

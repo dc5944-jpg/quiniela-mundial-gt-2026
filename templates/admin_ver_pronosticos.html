@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ver Pronósticos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+<div class="container">
+<div class="card">
+
+<h1>🏆 Quiniela Mundial GT 2026</h1>
+
+<h2>Ver Pronósticos - {{ etapa }}</h2>
+
+<div class="nav">
+    <a href="/admin">Participantes</a>
+    <a href="/admin/partidos">Partidos</a>
+    <a href="/admin/ver-pronosticos">Ver Pronósticos</a>
+    <a href="/ranking">Ranking</a>
+    <a href="/premios">Premios</a>
+    <a href="/reglamento">Reglamento</a>
+    <a href="/logout">Salir</a>
+</div>
+
+<div class="nav">
+{% for e in etapas %}
+    <a class="{% if e == etapa %}gold{% endif %}" href="/admin/ver-pronosticos?etapa={{ e }}">{{ e }}</a>
+{% endfor %}
+</div>
+
+<table>
+<tr>
+    <th>Partido</th>
+    {% for participante in participantes %}
+        <th>{{ participante.nombre }}</th>
+    {% endfor %}
+</tr>
+
+{% for partido in partidos %}
+<tr>
+    <td>
+        <strong>{{ partido.numero }}</strong><br>
+        {{ partido.equipo_local }} vs {{ partido.equipo_visitante }}<br>
+        <small>{{ partido.fecha_texto }}</small>
+    </td>
+
+    {% for participante in participantes %}
+        {% set pron = pron_map.get((participante.id, partido.id)) %}
+
+        <td>
+            {% if pron %}
+                <strong>{{ pron.pron_local }} - {{ pron.pron_visitante }}</strong>
+            {% else %}
+                -
+            {% endif %}
+        </td>
+    {% endfor %}
+</tr>
+{% endfor %}
+</table>
+
+</div>
+</div>
+</body>
+</html>
