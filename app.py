@@ -506,6 +506,58 @@ def admin_ver_pronosticos():
         pron_map=pron_map
     )
 
+def motivo_puntos(pronostico, partido):
+    if partido.goles_local is None or partido.goles_visitante is None:
+        return "Sin resultado"
+
+    if pronostico.pron_local == partido.goles_local and pronostico.pron_visitante == partido.goles_visitante:
+        return "Marcador exacto"
+
+    if diferencia(pronostico.pron_local, pronostico.pron_visitante) == diferencia(partido.goles_local, partido.goles_visitante):
+        return "Diferencia correcta"
+
+    if ganador(pronostico.pron_local, pronostico.pron_visitante) == ganador(partido.goles_local, partido.goles_visitante):
+        return "Ganador/empate correcto"
+
+    return "Incorrecto"
+
+
+@app.route("/admin/ver-puntos")
+def admin_ver_puntos():
+    if not es_admin():
+        return redirect("/")
+
+    etapa = request.args.get("etapa", "Jornada 1")
+
+    etapas = [x[0] for x in db.session.query(Partido.etapa).distinct().all()]
+
+    pronosticos = Pronostico.query.join(Usuario).join(Partido).filter(
+        Usuario.es_admin == False,
+        Partido.etapa == etapa
+    ).order_by(Usuario.nombre, Partido.numero).all()
+
+    data = []
+
+    for pron in pronosticos:
+        partido = pron.partido
+        puntos, exacto = puntos_pronostico(pron, partido)
+
+        data.append({
+            "participante": pron.usuario.nombre,
+            "partido": partido,
+            "pronostico": f"{pron.pron_local} - {pron.pron_visitante}",
+            "resultado": "-" if partido.goles_local is None or partido.goles_visitante is None else f"{partido.goles_local} - {partido.goles_visitante}",
+            "puntos": puntos,
+            "motivo": motivo_puntos(pron, partido)
+        })
+
+    return render_template(
+        "admin_ver_puntos.html",
+        data=data,
+        etapas=etapas,
+        etapa=etapa
+    )
+
 
 if __name__ == "__main__":
     app.run(debug=True)
